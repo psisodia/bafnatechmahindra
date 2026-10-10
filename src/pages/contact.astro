@@ -1,0 +1,52 @@
+---
+import PageHero from "../components/PageHero.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { email, phoneNumbers, whatsappUrl } from "../data/products";
+import { breadcrumbSchema, contactPageSchema } from "../data/seo";
+
+const message =
+  "Hello BAFNA TECHINFRA, I am interested in your road construction materials. Please share product details and availability.";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact BAFNA TECHINFRA for PQC materials, road construction materials, joint sealing solutions, and concrete finishing equipment."
+  schema={[
+    contactPageSchema(),
+    breadcrumbSchema([
+      { name: "Home", url: "https://www.bafnatechinfra.com/" },
+      { name: "Contact", url: "https://www.bafnatechinfra.com/contact/" },
+    ]),
+  ]}
+>
+  <PageHero
+    title="Contact BAFNA TECHINFRA"
+    eyebrow="Contact"
+    intro="Get product details and availability for PQC materials, joint sealing solutions, surface finishing equipment, and road construction tools."
+  />
+  <section class="section">
+    <div class="container contact-band">
+      <article class="contact-box reveal">
+        <strong>Phone</strong>
+        {phoneNumbers.map((phone) => <p><a href={`tel:+91${phone}`}>+91 {phone}</a></p>)}
+      </article>
+      <article class="contact-box reveal">
+        <strong>Email</strong>
+        <p><a href={`mailto:${email}`}>{email}</a></p>
+      </article>
+      <article class="contact-box reveal">
+        <strong>Business Hours</strong>
+        <p>Monday - Saturday</p>
+      </article>
+      <article class="contact-box reveal">
+        <strong>Instant Inquiry</strong>
+        <p style="margin-bottom: 16px;">
+          Send a prefilled inquiry directly on WhatsApp.
+        </p>
+        <a class="btn whatsapp" href={whatsappUrl(message)} target="_blank" rel="noreferrer">
+          Get Instant Details
+        </a>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

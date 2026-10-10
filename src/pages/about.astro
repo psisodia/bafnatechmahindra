@@ -1,0 +1,78 @@
+---
+import PageHero from "../components/PageHero.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { breadcrumbSchema } from "../data/seo";
+
+const served = [
+  "Highways",
+  "Expressways",
+  "Concrete Roads",
+  "Bridges",
+  "Airports",
+  "Industrial Flooring",
+  "Infrastructure Projects",
+];
+---
+
+<BaseLayout
+  title="About Us"
+  description="Learn about BAFNA TECHINFRA, a specialized supplier of PQC, road construction, bridge construction, and infrastructure materials."
+  schema={[
+    {
+      "@type": "AboutPage",
+      "@id": "https://www.bafnatechinfra.com/about/#about",
+      name: "About BAFNA TECHINFRA",
+      url: "https://www.bafnatechinfra.com/about/",
+      description:
+        "Learn about BAFNA TECHINFRA, a specialized supplier of PQC, road construction, bridge construction, and infrastructure materials.",
+    },
+    breadcrumbSchema([
+      { name: "Home", url: "https://www.bafnatechinfra.com/" },
+      { name: "About Us", url: "https://www.bafnatechinfra.com/about/" },
+    ]),
+  ]}
+>
+  <PageHero
+    title="About BAFNA TECHINFRA"
+    eyebrow="About Us"
+    intro="A specialized supplier of Pavement Quality Concrete, road construction, bridge construction, and infrastructure materials."
+  />
+  <section class="section">
+    <div class="container split">
+      <div class="reveal">
+        <p class="eyebrow">Company</p>
+        <h2>Built on the trusted 59-year legacy of Bafna Loha Bhandar</h2>
+      </div>
+      <div class="reveal">
+        <p class="lead">
+          BAFNA TECHINFRA delivers high-quality products that meet the demanding
+          requirements of modern infrastructure projects.
+        </p>
+        <p class="lead" style="margin-top: 18px;">
+          Our mission is to provide contractors, developers, and infrastructure
+          companies with reliable materials and equipment that improve project
+          efficiency, durability, and performance.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">We Serve</p>
+          <h2>Focused on infrastructure professionals</h2>
+        </div>
+      </div>
+      <div class="grid cols-4">
+        {served.map((item) => (
+          <article class="card reveal">
+            <div class="card-body">
+              <h3>{item}</h3>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

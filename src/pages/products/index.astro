@@ -1,0 +1,61 @@
+---
+import PageHero from "../../components/PageHero.astro";
+import ProductCard from "../../components/ProductCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { categories, products } from "../../data/products";
+import { breadcrumbSchema, productCatalogSchema } from "../../data/seo";
+---
+
+<BaseLayout
+  title="Products"
+  description="Explore BAFNA TECHINFRA product categories including PQC materials, joint sealing solutions, surface finishing equipment, and road construction tools."
+  schema={[
+    productCatalogSchema(),
+    breadcrumbSchema([
+      { name: "Home", url: "https://www.bafnatechinfra.com/" },
+      { name: "Products", url: "https://www.bafnatechinfra.com/products/" },
+    ]),
+  ]}
+>
+  <PageHero
+    title="Product Catalog"
+    eyebrow="Products"
+    intro="Premium materials, tools, and equipment for PQC roads, highways, bridges, airfields, and infrastructure projects."
+  />
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Categories</p>
+          <h2>Browse by product category</h2>
+        </div>
+      </div>
+      <div class="grid cols-4">
+        {categories.map((category) => (
+          <article class="card reveal">
+            <div class="card-body">
+              <h3><a href={`/products/${category.slug}/`}>{category.name}</a></h3>
+              <p>{category.summary}</p>
+              <div class="card-actions">
+                <a class="mini-link" href={`/products/${category.slug}/`}>Open Category</a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">All Products</p>
+          <h2>{products.length} products for infrastructure projects</h2>
+        </div>
+      </div>
+      <div class="grid cols-3">
+        {products.map((product) => <ProductCard product={product} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

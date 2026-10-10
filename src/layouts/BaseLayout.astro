@@ -1,0 +1,196 @@
+---
+import "../styles/global.css";
+import { categories, email, phoneNumbers, whatsappUrl } from "../data/products";
+
+type Props = {
+  title: string;
+  description: string;
+  image?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+};
+
+const { title, description, image = "/assets/hero/pqc-road-construction-hero.png", schema = [] } = Astro.props;
+const siteUrl = "https://www.bafnatechinfra.com";
+const brandLogo = "/assets/brand/bafna-techinfra-logo.svg";
+const pageTitle = `${title} | BAFNA TECHINFRA`;
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const imageUrl = new URL(image, siteUrl).toString();
+const generalMessage =
+  "Hello BAFNA TECHINFRA, I am interested in your PQC and road construction materials. Please share product details and availability.";
+const organizationSchema = {
+  "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
+  name: "BAFNA TECHINFRA",
+  url: siteUrl,
+  logo: `${siteUrl}${brandLogo}`,
+  description:
+    "Supplier of PQC materials, road construction materials, joint sealing systems, surface finishing equipment, and concrete accessories across India.",
+  email,
+  telephone: phoneNumbers.map((phone) => `+91${phone}`),
+  areaServed: {
+    "@type": "Country",
+    name: "India",
+  },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: `+91${phoneNumbers[0]}`,
+      contactType: "sales",
+      areaServed: "IN",
+      availableLanguage: ["en", "hi", "mr"],
+    },
+  ],
+};
+const websiteSchema = {
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  url: siteUrl,
+  name: "BAFNA TECHINFRA",
+  alternateName: ["Bafna Techinfra", "Bafna Tech Infra"],
+  publisher: { "@id": `${siteUrl}/#organization` },
+  inLanguage: "en-IN",
+};
+const webpageSchema = {
+  "@type": "WebPage",
+  "@id": `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: pageTitle,
+  description,
+  isPartOf: { "@id": `${siteUrl}/#website` },
+  about: { "@id": `${siteUrl}/#organization` },
+  inLanguage: "en-IN",
+};
+const additionalSchema = Array.isArray(schema) ? schema : [schema];
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [organizationSchema, websiteSchema, webpageSchema, ...additionalSchema],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="PQC Materials Supplier India, Road Construction Materials, LDPE Membrane Sheet Supplier, Dowel Bar Sleeve Manufacturer, Backer Rod Supplier, Polysulphide Sealant Supplier, Bull Floater Supplier, Texturing Brush Supplier, Diamond Groove Cutting Blade, Expansion Joint Board Supplier, Concrete Fibre Supplier, Road Construction Equipment, Bridge Construction Materials, Airport Runway Materials"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="application-name" content="BAFNA TECHINFRA" />
+    <meta name="author" content="BAFNA TECHINFRA" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href={brandLogo} type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="BAFNA TECHINFRA" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:locale" content="en_IN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <title>{pageTitle}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/" aria-label="BAFNA TECHINFRA home">
+          <img class="brand-logo" src={brandLogo} alt="" width="52" height="52" />
+          <span>
+            BAFNA TECHINFRA
+            <small>Road Construction Materials</small>
+          </span>
+        </a>
+        <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          Menu
+        </button>
+        <nav class="nav-links" id="site-nav" aria-label="Main navigation">
+          <a href="/">Home</a>
+          <a href="/about/">About Us</a>
+          <details class="nav-drop">
+            <summary>Products</summary>
+            <div class="nav-menu">
+              <a href="/products/">All Products</a>
+              {categories.map((category) => (
+                <a href={`/products/${category.slug}/`}>{category.name}</a>
+              ))}
+            </div>
+          </details>
+          <a href="/contact/">Contact</a>
+          <a class="btn whatsapp" href={whatsappUrl(generalMessage)} target="_blank" rel="noreferrer">
+            WhatsApp
+          </a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <a
+      class="floating-whatsapp"
+      href={whatsappUrl(generalMessage)}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Inquire on WhatsApp"
+    >
+      WhatsApp Us
+    </a>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <h3>BAFNA TECHINFRA</h3>
+            <p>
+              Premium PQC, road construction, bridge construction, airfield,
+              and concrete finishing material solutions across India.
+            </p>
+          </div>
+          <div>
+            <h3>Products</h3>
+            {categories.map((category) => (
+              <a href={`/products/${category.slug}/`}>{category.name}</a>
+            ))}
+          </div>
+          <div>
+            <h3>Company</h3>
+            <a href="/">Home</a>
+            <a href="/about/">About Us</a>
+            <a href="/contact/">Contact</a>
+          </div>
+          <div>
+            <h3>Contact</h3>
+            {phoneNumbers.map((phone) => <a href={`tel:+91${phone}`}>+91 {phone}</a>)}
+            <a href={`mailto:${email}`}>{email}</a>
+          </div>
+        </div>
+        <p class="copyright">
+          Built on the trusted 59-year legacy of Bafna Loha Bhandar.
+        </p>
+      </div>
+    </footer>
+    <script>
+      const toggle = document.querySelector(".mobile-toggle");
+      const nav = document.querySelector(".nav-links");
+      toggle?.addEventListener("click", () => {
+        const open = nav?.classList.toggle("open") ?? false;
+        toggle.setAttribute("aria-expanded", String(open));
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

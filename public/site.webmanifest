@@ -1,0 +1,16 @@
+{
+  "name": "BAFNA TECHINFRA",
+  "short_name": "BAFNA",
+  "description": "PQC materials, road construction materials, joint sealing systems, and concrete finishing equipment supplier in India.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#071d3a",
+  "icons": [
+    {
+      "src": "/assets/brand/bafna-techinfra-logo.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}

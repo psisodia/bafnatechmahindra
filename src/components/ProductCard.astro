@@ -1,0 +1,35 @@
+---
+import { productInquiryMessage, whatsappUrl, type Product } from "../data/products";
+
+type Props = {
+  product: Product;
+};
+
+const { product } = Astro.props;
+---
+
+<article class="card product-card reveal">
+  <a href={`/products/${product.categorySlug}/${product.slug}/`}>
+    <img src={product.image} alt={product.name} loading="lazy" />
+  </a>
+  <div class="card-body">
+    <span class="category-label">{product.categoryName}</span>
+    <h3>
+      <a href={`/products/${product.categorySlug}/${product.slug}/`}>{product.name}</a>
+    </h3>
+    <p>{product.description}</p>
+    <div class="card-actions">
+      <a class="mini-link" href={`/products/${product.categorySlug}/${product.slug}/`}>
+        View Product
+      </a>
+      <a
+        class="mini-link"
+        href={whatsappUrl(productInquiryMessage(product))}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Inquire on WhatsApp
+      </a>
+    </div>
+  </div>
+</article>

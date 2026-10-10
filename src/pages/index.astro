@@ -1,0 +1,211 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProductCard from "../components/ProductCard.astro";
+import ProductCarousel from "../components/ProductCarousel.astro";
+import {
+  categories,
+  featuredProduct,
+  productInquiryMessage,
+  products,
+  whatsappUrl,
+} from "../data/products";
+import { absoluteUrl, homeCatalogSchema } from "../data/seo";
+
+const applications = [
+  "Highways",
+  "Expressways",
+  "Concrete Roads",
+  "Airport Runways",
+  "Bridge Construction",
+  "Industrial Flooring",
+  "Infrastructure Projects",
+];
+
+const whyChoose = [
+  "59+ Years Business Legacy",
+  "Premium Quality Materials",
+  "Reliable Supply Network",
+  "Technical Product Knowledge",
+  "Fast Delivery Support",
+  "Contractor Focused Solutions",
+  "Competitive Pricing",
+  "Trusted By Infrastructure Professionals",
+];
+---
+
+<BaseLayout
+  title="PQC & Road Construction Material Solutions"
+  description="BAFNA TECHINFRA supplies PQC materials, road construction materials, joint sealing systems, concrete finishing tools, and infrastructure products across India."
+  image={absoluteUrl(featuredProduct.image)}
+  schema={[
+    {
+      "@type": "HomeAndConstructionBusiness",
+      "@id": "https://www.bafnatechinfra.com/#business",
+      name: "BAFNA TECHINFRA",
+      url: "https://www.bafnatechinfra.com/",
+      image: absoluteUrl(featuredProduct.image),
+      description:
+        "Supplier of PQC materials, road construction materials, joint sealing solutions, surface finishing equipment, and concrete accessories across India.",
+      areaServed: "India",
+    },
+    homeCatalogSchema(),
+  ]}
+>
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">BAFNA TECHINFRA</p>
+        <h1>Complete PQC & Road Construction Material Solutions</h1>
+        <p class="lead">
+          Trusted supplier of premium road construction materials, joint sealing
+          systems, surface finishing tools, and concrete accessories for
+          highways, bridges, airfields, and infrastructure projects.
+        </p>
+        <div class="button-row">
+          <a class="btn" href="/products/">Explore Products</a>
+          <a
+            class="btn whatsapp"
+            href={whatsappUrl("Hello BAFNA TECHINFRA, I am interested in your PQC and road construction materials. Please share product details and availability.")}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Inquire on WhatsApp
+          </a>
+        </div>
+        <div class="hero-stats" aria-label="Company strengths">
+          <div class="hero-stat">
+            <strong>59+</strong>
+            <span>Years legacy</span>
+          </div>
+          <div class="hero-stat">
+            <strong>21</strong>
+            <span>Core products</span>
+          </div>
+          <div class="hero-stat">
+            <strong>India</strong>
+            <span>Infrastructure supply</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="reveal">
+        <p class="eyebrow">Main Product</p>
+        <h2>{featuredProduct.name}</h2>
+        <p class="lead" style="margin-top: 18px;">
+          {featuredProduct.description}
+        </p>
+        <div class="button-row" style="margin-top: 26px;">
+          <a class="btn" href={`/products/${featuredProduct.categorySlug}/${featuredProduct.slug}/`}>
+            View LDPE Details
+          </a>
+          <a
+            class="btn whatsapp"
+            href={whatsappUrl(productInquiryMessage(featuredProduct))}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Inquire on WhatsApp
+          </a>
+        </div>
+      </div>
+      <article class="feature-panel reveal">
+        <img src={featuredProduct.image} alt={featuredProduct.name} loading="lazy" />
+        <div class="feature-panel-content">
+          <h3>For PQC roads, highways, and airport runways</h3>
+          <p>
+            Built for separation, moisture control, and reduced friction between
+            layers in demanding pavement work.
+          </p>
+          <a class="mini-link" href={`/products/${featuredProduct.categorySlug}/`}>
+            Browse PQC Materials
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Product Gallery</p>
+          <h2>Browse products by category</h2>
+        </div>
+        <p class="lead">
+          Each product category has its own rotating carousel for quick
+          scanning before opening a product detail page.
+        </p>
+      </div>
+      <div class="category-carousel-stack">
+        {categories.map((category) => (
+          <section class="category-carousel-block reveal" aria-labelledby={`${category.slug}-carousel-title`}>
+            <div class="category-carousel-head">
+              <div>
+                <span class="category-label">{category.products.length} Products</span>
+                <h3 id={`${category.slug}-carousel-title`}>{category.name}</h3>
+                <p>{category.summary}</p>
+              </div>
+              <a class="mini-link" href={`/products/${category.slug}/`}>View Category</a>
+            </div>
+            <ProductCarousel products={category.products} ariaLabel={`${category.name} product carousel`} />
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="container split">
+      <div class="reveal">
+        <p class="eyebrow">Why Choose Us</p>
+        <h2>Built for contractors who need reliable supply and clear product guidance</h2>
+        <p class="lead" style="margin-top: 18px;">
+          BAFNA TECHINFRA combines a trusted business legacy with practical
+          product knowledge for infrastructure professionals.
+        </p>
+      </div>
+      <div class="list-grid reveal">
+        {whyChoose.map((item) => <div class="check-item">{item}</div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Project Applications</p>
+          <h2>Supplying materials across critical project types</h2>
+        </div>
+      </div>
+      <div class="grid cols-4">
+        {applications.map((item) => (
+          <article class="application-card card reveal">
+            <h3>{item}</h3>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Featured Products</p>
+          <h2>Fast access to high-demand products</h2>
+        </div>
+        <div class="button-row">
+          <a class="btn secondary" href="/products/">View All Products</a>
+        </div>
+      </div>
+      <div class="grid cols-3">
+        {products.slice(0, 6).map((product) => <ProductCard product={product} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

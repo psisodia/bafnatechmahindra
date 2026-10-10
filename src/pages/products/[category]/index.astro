@@ -1,0 +1,75 @@
+---
+import PageHero from "../../../components/PageHero.astro";
+import ProductCard from "../../../components/ProductCard.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import {
+  categories,
+  categoryInquiryMessage,
+  whatsappUrl,
+  type ProductCategory,
+} from "../../../data/products";
+import {
+  breadcrumbSchema,
+  categoryCollectionSchema,
+  categoryUrl,
+} from "../../../data/seo";
+
+export function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { category: category.slug },
+    props: { category },
+  }));
+}
+
+type Props = {
+  category: ProductCategory;
+};
+
+const { category } = Astro.props;
+---
+
+<BaseLayout
+  title={category.name}
+  description={`${category.name} from BAFNA TECHINFRA. ${category.summary}`}
+  schema={[
+    categoryCollectionSchema(category),
+    breadcrumbSchema([
+      { name: "Home", url: "https://www.bafnatechinfra.com/" },
+      { name: "Products", url: "https://www.bafnatechinfra.com/products/" },
+      { name: category.name, url: categoryUrl(category) },
+    ]),
+  ]}
+>
+  <PageHero
+    title={category.name}
+    eyebrow="Product Category"
+    intro={category.summary}
+    crumbs={[
+      { label: "Products", href: "/products/" },
+      { label: category.name },
+    ]}
+  />
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Category Products</p>
+          <h2>{category.products.length} products in {category.name}</h2>
+        </div>
+        <div class="button-row">
+          <a
+            class="btn whatsapp"
+            href={whatsappUrl(categoryInquiryMessage(category))}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Inquire on WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="grid cols-3">
+        {category.products.map((product) => <ProductCard product={product} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

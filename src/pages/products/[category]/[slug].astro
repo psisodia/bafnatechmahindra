@@ -1,0 +1,153 @@
+---
+import PageHero from "../../../components/PageHero.astro";
+import ProductCard from "../../../components/ProductCard.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import {
+  categories,
+  productInquiryMessage,
+  products,
+  whatsappUrl,
+  type Product,
+  type ProductCategory,
+} from "../../../data/products";
+import {
+  absoluteUrl,
+  breadcrumbSchema,
+  categoryUrl,
+  productSchema,
+  productUrl,
+} from "../../../data/seo";
+
+export function getStaticPaths() {
+  return categories.flatMap((category) =>
+    category.products.map((product) => ({
+      params: { category: category.slug, slug: product.slug },
+      props: { category, product },
+    }))
+  );
+}
+
+type Props = {
+  category: ProductCategory;
+  product: Product;
+};
+
+const { category, product } = Astro.props;
+const related = products
+  .filter((item) => item.categorySlug === category.slug && item.slug !== product.slug)
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={product.name}
+  description={`${product.name} from BAFNA TECHINFRA. ${product.description}`}
+  image={absoluteUrl(product.image)}
+  schema={[
+    productSchema(product),
+    breadcrumbSchema([
+      { name: "Home", url: "https://www.bafnatechinfra.com/" },
+      { name: "Products", url: "https://www.bafnatechinfra.com/products/" },
+      { name: category.name, url: categoryUrl(category) },
+      { name: product.name, url: productUrl(product) },
+    ]),
+  ]}
+>
+  <PageHero
+    title={product.name}
+    eyebrow={category.name}
+    intro={product.description}
+    crumbs={[
+      { label: "Products", href: "/products/" },
+      { label: category.name, href: `/products/${category.slug}/` },
+      { label: product.name },
+    ]}
+  />
+  <section class="section">
+    <div class="container product-detail">
+      <div class="product-media reveal">
+        <button class="zoom-button" type="button" data-zoom-open aria-label={`Zoom ${product.name} image`}>
+          <img src={product.image} alt={product.name} />
+        </button>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Product Details</p>
+        <h2>{product.name}</h2>
+        <p class="lead" style="margin-top: 18px;">{product.description}</p>
+
+        {product.applications && (
+          <>
+            <h3 style="margin-top: 30px;">Applications</h3>
+            <ul class="detail-list">
+              {product.applications.map((item) => <li>{item}</li>)}
+            </ul>
+          </>
+        )}
+
+        {product.features && (
+          <>
+            <h3 style="margin-top: 30px;">Features</h3>
+            <ul class="detail-list">
+              {product.features.map((item) => <li>{item}</li>)}
+            </ul>
+          </>
+        )}
+
+        {product.types && (
+          <>
+            <h3 style="margin-top: 30px;">Types</h3>
+            <ul class="detail-list">
+              {product.types.map((item) => <li>{item}</li>)}
+            </ul>
+          </>
+        )}
+
+        <div class="button-row" style="margin-top: 30px;">
+          <a
+            class="btn whatsapp"
+            href={whatsappUrl(productInquiryMessage(product))}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Inquire on WhatsApp
+          </a>
+          <a class="btn secondary" href={`/products/${category.slug}/`}>
+            Back to {category.name}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <dialog data-zoom-dialog>
+    <button class="btn secondary dialog-close" type="button" data-zoom-close>Close</button>
+    <img src={product.image} alt={product.name} />
+  </dialog>
+
+  {related.length > 0 && (
+    <section class="section soft">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Related Products</p>
+            <h2>More from {category.name}</h2>
+          </div>
+        </div>
+        <div class="grid cols-3">
+          {related.map((item) => <ProductCard product={item} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <script>
+    const dialog = document.querySelector("[data-zoom-dialog]");
+    const open = document.querySelector("[data-zoom-open]");
+    const close = document.querySelector("[data-zoom-close]");
+    open?.addEventListener("click", () => {
+      if (dialog instanceof HTMLDialogElement) dialog.showModal();
+    });
+    close?.addEventListener("click", () => {
+      if (dialog instanceof HTMLDialogElement) dialog.close();
+    });
+  </script>
+</BaseLayout>

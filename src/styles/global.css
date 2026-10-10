@@ -1,0 +1,918 @@
+:root {
+  --navy: #071d3a;
+  --navy-2: #0b2a4d;
+  --blue: #114a7e;
+  --steel: #5f6f7c;
+  --steel-2: #d8e0e7;
+  --line: #dfe6ec;
+  --soft: #f4f7fa;
+  --white: #ffffff;
+  --ink: #102033;
+  --muted: #5d6b79;
+  --accent: #f5b544;
+  --accent-2: #22a96b;
+  --shadow: 0 18px 45px rgba(7, 29, 58, 0.14);
+  --radius: 8px;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--white);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.container {
+  width: min(1160px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.section {
+  padding: 88px 0;
+}
+
+.section.soft {
+  background: var(--soft);
+}
+
+.section.dark {
+  color: var(--white);
+  background: linear-gradient(135deg, var(--navy), #102f52);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.section.dark .eyebrow,
+.hero .eyebrow {
+  color: #8fd0ff;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  color: inherit;
+  line-height: 1.08;
+}
+
+h1 {
+  font-size: clamp(2.35rem, 5vw, 5rem);
+  letter-spacing: 0;
+}
+
+h2 {
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  letter-spacing: 0;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+p {
+  margin: 0;
+}
+
+.lead {
+  color: var(--muted);
+  font-size: 1.08rem;
+  max-width: 720px;
+}
+
+.section.dark .lead,
+.hero .lead {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px 18px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 0.93rem;
+  font-weight: 800;
+  line-height: 1.1;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  background: var(--blue);
+}
+
+.btn.secondary {
+  background: var(--white);
+  color: var(--navy);
+  border-color: rgba(7, 29, 58, 0.16);
+}
+
+.btn.secondary:hover {
+  border-color: var(--navy);
+  background: #f8fafc;
+}
+
+.btn.whatsapp {
+  background: #188a53;
+}
+
+.btn.whatsapp:hover {
+  background: #106e41;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  border-bottom: 1px solid rgba(223, 230, 236, 0.82);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(18px);
+}
+
+.nav {
+  display: flex;
+  min-height: 74px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--navy);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.brand-logo {
+  width: 76px;
+  height: 52px;
+  object-fit: cover;
+  object-position: left center;
+  flex: 0 0 auto;
+}
+
+.brand small {
+  display: block;
+  color: var(--steel);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-links a,
+.nav-drop summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 8px 11px;
+  border-radius: 5px;
+  color: #23384e;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.nav-links a:hover,
+.nav-drop summary:hover {
+  background: var(--soft);
+  color: var(--navy);
+}
+
+.nav-drop {
+  position: relative;
+}
+
+.nav-drop summary {
+  list-style: none;
+}
+
+.nav-drop summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 280px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.nav-menu a {
+  display: block;
+  padding: 12px;
+}
+
+.mobile-toggle {
+  display: none;
+}
+
+.hero {
+  position: relative;
+  min-height: calc(100vh - 150px);
+  color: var(--white);
+  background:
+    linear-gradient(90deg, rgba(7, 29, 58, 0.96) 0%, rgba(7, 29, 58, 0.82) 45%, rgba(7, 29, 58, 0.22) 100%),
+    url("/assets/hero/pqc-road-construction-hero.png") center / cover;
+}
+
+.hero-inner {
+  display: grid;
+  min-height: calc(100vh - 150px);
+  align-items: center;
+  padding: 46px 0 42px;
+}
+
+.hero-copy {
+  max-width: 760px;
+}
+
+.hero h1 {
+  max-width: 820px;
+  font-size: clamp(2.35rem, 4.7vw, 4.4rem);
+}
+
+.hero .lead {
+  margin: 18px 0 24px;
+  font-size: clamp(1.05rem, 1.8vw, 1.24rem);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  width: min(760px, 100%);
+  margin-top: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.hero-stat {
+  padding: 18px;
+  background: rgba(5, 18, 35, 0.34);
+}
+
+.hero-stat strong {
+  display: block;
+  color: var(--white);
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+.hero-stat span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 52px;
+  align-items: center;
+}
+
+.feature-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.feature-panel img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: linear-gradient(135deg, #eef4f9, #ffffff);
+}
+
+.feature-panel-content {
+  padding: 24px;
+}
+
+.feature-panel-content p {
+  margin: 12px 0 18px;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  gap: 22px;
+}
+
+.grid.cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid.cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid.cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  overflow: hidden;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.card:hover {
+  border-color: #bfd0dd;
+  box-shadow: 0 16px 34px rgba(7, 29, 58, 0.11);
+  transform: translateY(-2px);
+}
+
+.product-card img {
+  width: 100%;
+  aspect-ratio: 1.15 / 1;
+  object-fit: contain;
+  padding: 18px;
+  background: linear-gradient(135deg, #edf3f8, #ffffff);
+}
+
+.card-body {
+  padding: 21px;
+}
+
+.card-body p {
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.mini-link {
+  color: var(--blue);
+  font-size: 0.88rem;
+  font-weight: 900;
+}
+
+.mini-link:hover {
+  color: var(--navy);
+}
+
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+
+.section-head p {
+  max-width: 640px;
+}
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.category-carousel-stack {
+  display: grid;
+  gap: 34px;
+}
+
+.category-carousel-block {
+  display: grid;
+  gap: 16px;
+}
+
+.category-carousel-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.category-carousel-head h3 {
+  margin-top: 6px;
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+}
+
+.category-carousel-head p {
+  max-width: 720px;
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.carousel-track {
+  display: flex;
+  will-change: transform;
+  transition: transform 520ms ease;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+}
+
+.carousel-image {
+  display: grid;
+  min-height: 430px;
+  place-items: center;
+  background: linear-gradient(135deg, #eaf1f7, #ffffff);
+}
+
+.carousel-image img {
+  width: min(76%, 430px);
+  max-height: 360px;
+  object-fit: contain;
+}
+
+.carousel-copy {
+  padding: 44px;
+}
+
+.carousel-copy p {
+  margin: 14px 0 22px;
+  color: var(--muted);
+}
+
+.category-label {
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.carousel-controls {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.icon-btn svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-btn:hover {
+  border-color: var(--navy);
+}
+
+.application-card {
+  min-height: 176px;
+  padding: 22px;
+  color: var(--white);
+  background:
+    linear-gradient(135deg, rgba(7, 29, 58, 0.92), rgba(17, 74, 126, 0.7)),
+    url("/assets/hero/pqc-road-construction-hero.png") center / cover;
+}
+
+.application-card h3 {
+  margin-top: 70px;
+}
+
+.list-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.check-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 13px;
+  border: 1px solid rgba(223, 230, 236, 0.2);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.check-item::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  margin-top: 8px;
+  border-radius: 99px;
+  background: var(--accent);
+}
+
+.page-hero {
+  padding: 82px 0 64px;
+  color: var(--white);
+  background:
+    linear-gradient(90deg, rgba(7, 29, 58, 0.95), rgba(7, 29, 58, 0.72)),
+    url("/assets/hero/pqc-road-construction-hero.png") center / cover;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.breadcrumb a {
+  color: var(--white);
+}
+
+.product-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 54px;
+  align-items: start;
+}
+
+.product-media {
+  position: sticky;
+  top: 98px;
+}
+
+.zoom-button {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #edf3f8, #ffffff);
+  cursor: zoom-in;
+}
+
+.zoom-button img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  padding: 28px;
+}
+
+.detail-list {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.detail-list li {
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--soft);
+  color: #273c51;
+  font-weight: 700;
+}
+
+dialog {
+  width: min(900px, calc(100% - 28px));
+  border: 0;
+  border-radius: 8px;
+  padding: 18px;
+  box-shadow: 0 28px 80px rgba(7, 29, 58, 0.36);
+}
+
+dialog::backdrop {
+  background: rgba(7, 29, 58, 0.72);
+}
+
+.dialog-close {
+  float: right;
+  margin-bottom: 10px;
+}
+
+.contact-band {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.contact-box {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+.contact-box strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--navy);
+}
+
+.floating-whatsapp {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: #188a53;
+  color: var(--white);
+  box-shadow: 0 16px 34px rgba(24, 138, 83, 0.3);
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
+.site-footer {
+  padding: 48px 0 28px;
+  color: rgba(255, 255, 255, 0.76);
+  background: #06162c;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr repeat(3, 1fr);
+  gap: 30px;
+}
+
+.site-footer h3 {
+  margin-bottom: 14px;
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.site-footer a {
+  display: block;
+  margin: 8px 0;
+}
+
+.copyright {
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.86rem;
+}
+
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 520ms ease,
+    transform 520ms ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 920px) {
+  .mobile-toggle {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--white);
+    color: var(--navy);
+    font-weight: 900;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 74px;
+    left: 0;
+    right: 0;
+    display: none;
+    padding: 14px 16px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--white);
+    box-shadow: var(--shadow);
+  }
+
+  .nav-links.open {
+    display: grid;
+  }
+
+  .nav-links a,
+  .nav-drop summary {
+    width: 100%;
+  }
+
+  .nav-menu {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .hero,
+  .hero-inner {
+    min-height: auto;
+  }
+
+  .hero {
+    background:
+      linear-gradient(90deg, rgba(7, 29, 58, 0.97), rgba(7, 29, 58, 0.72)),
+      url("/assets/hero/pqc-road-construction-hero.png") center / cover;
+  }
+
+  .hero-inner {
+    padding: 76px 0;
+  }
+
+  .hero-stats,
+  .split,
+  .carousel-slide,
+  .product-detail,
+  .footer-grid,
+  .contact-band {
+    grid-template-columns: 1fr;
+  }
+
+  .grid.cols-3,
+  .grid.cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .product-media {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(100% - 24px, 1160px);
+  }
+
+  .section {
+    padding: 64px 0;
+  }
+
+  .section-head {
+    display: block;
+  }
+
+  .category-carousel-head {
+    display: block;
+  }
+
+  .category-carousel-head .mini-link {
+    display: inline-flex;
+    margin-top: 12px;
+  }
+
+  .section-head .button-row {
+    margin-top: 18px;
+  }
+
+  .hero-stats,
+  .grid.cols-2,
+  .grid.cols-3,
+  .grid.cols-4,
+  .list-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .hero-stat {
+    padding: 12px 10px;
+  }
+
+  .hero-stat strong {
+    font-size: 1.15rem;
+  }
+
+  .hero-stat span {
+    font-size: 0.68rem;
+  }
+
+  .carousel-image {
+    min-height: 300px;
+  }
+
+  .carousel-copy {
+    padding: 28px;
+  }
+
+  .carousel-controls {
+    position: static;
+    padding: 0 28px 28px;
+  }
+
+  .floating-whatsapp {
+    right: 12px;
+    bottom: 12px;
+    min-height: 48px;
+    padding: 12px 14px;
+  }
+}
